@@ -51,11 +51,11 @@ public interface Cache {
      * @param key   the key with which the specified value is to be associated
      * @param value the value to be associated with the specified key
      */
-   <T> void put(Object key, T value);
+    <T> void put(Object key, T value);
     /**
      * expire time
      */
-  <T>  void put(Object key, T value, long millisecond, TimeUnit timeUnit);
+    <T>  void put(Object key, T value, long millisecond, TimeUnit timeUnit);
 
     /**
      * Evict the mapping for this key from this cache if it is present.
@@ -64,10 +64,36 @@ public interface Cache {
      */
     void evict(Object key);
 
+    /**
+     * 添加指定元素到set集合里
+     * @param value
+     */
     void addSet(Object value);
+
+    /**
+     * 添加指定元素都List集合
+     * @param value
+     */
     void addList(Object value);
+
+    /**
+     * 添加一个list结合到缓存中,最终是添加到list集合
+     * @param list
+     * @param <T>
+     */
     <T>void addAllList(List<T> list);
+
+    /**
+     * 添加一个指定元素有序的集合 并给这个元素打分
+     * @param o
+     * @param score
+     */
     void addSortSet(Object o,double score);
+
+    /**
+     * 忽略分数 添加一个指定元素到有序集合
+     * @param o
+     */
     void addSortSet(Object o);
 
     /**
@@ -80,15 +106,41 @@ public interface Cache {
     <T>Set<String> set();
     <K,V>Map<K,V> map();
     /**
-     * 返回的是list
+     * 返回set集合并对其中某一个元素进行排序
      * @param propertyName
      * @param <T>
      * @return
      */
     <T>Collection<T> sortSet(String propertyName);
+
+    /**
+     *  返回set集合并对其中某一个元素进行排序
+     * @param propertyName
+     * @param <T>
+     * @return
+     */
     <T>Collection<T> sortList(String propertyName);
+
+    /**
+     * 返回一个有序set集合
+     * @param <T>
+     * @return
+     */
     <T>Collection<T> scoredSortedSet();
+
+    /**
+     * 返回指定索引和长度的有序set集合
+     * @param start
+     * @param len
+     * @return
+     */
     Collection scoredSortedSet(int start,int len);
+
+    /**
+     * 返回list集合
+     * @param <T>
+     * @return
+     */
     <T> List<T> list();
     /**
      * Remove all mappings from the cache.
@@ -99,7 +151,13 @@ public interface Cache {
      * @return get all name
      */
     public Collection<String> getCacheNames();
+
+    /**
+     * 存入已知map
+     * @param map
+     * @param <K>
+     * @param <V>
+     */
     public <K,V> void putAll(Map<K,V> map);
 
 }
-
